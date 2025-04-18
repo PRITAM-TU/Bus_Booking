@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SwiftRide - 3D Bus Booking</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="index.css">
+
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">
+                <i class="fas fa-bus"></i>
+                <span>Pritam_Travels</span>
+            </div>
+            <button class="mobile-menu-btn" id="mobileMenuBtn">
+                <i class="fas fa-bars"></i>
+            </button>
+            <div class="nav-links" id="navLinks">
+                <a href="#">Home</a>
+                <a href="#">Book</a>
+                <a href="#">Routes</a>
+                <a href="#">Offers</a>
+                <a href="#">Contact</a>
+            </div>
+        </nav>
+    </header>
+
+    <div class="floating-bus bus-1">
+        <i class="fas fa-bus"></i>
+    </div>
+    <div class="floating-bus bus-2">
+        <i class="fas fa-bus"></i>
+    </div>
+    <div class="floating-bus bus-3">
+        <i class="fas fa-bus"></i>
+    </div>
+
+    <section class="hero">
+        <div class="search-card floating">
+            <h2>Book Your Bus Journey</h2>
+            <form class="search-form" id="searchForm">
+                <div class="form-group">
+                    <label for="from">From</label>
+                    <input type="text" id="from" placeholder="Departure city" required>
+                </div>
+                <div class="form-group">
+                    <label for="to">To</label>
+                    <input type="text" id="to" placeholder="Destination city" required>
+                </div>
+                <div class="form-group">
+                    <label for="date">Travel Date</label>
+                    <input type="date" id="date" required>
+                </div>
+                <div class="form-group">
+                    <label for="passengers">Passengers</label>
+                    <select id="passengers">
+                        <option value="1">1 Passenger</option>
+                        <option value="2">2 Passengers</option>
+                        <option value="3">3 Passengers</option>
+                        <option value="4">4 Passengers</option>
+                        <option value="5">5 Passengers</option>
+                    </select>
+                </div>
+                <button type="submit" class="search-btn">Search Buses <i class="fas fa-search"></i></button>
+            </form>
+        </div>
+    </section>
+
+    <section class="bus-list" id="busList">
+        <!-- Buses will be loaded here by JavaScript -->
+    </section>
+
+    <section class="features">
+        <div class="feature-card">
+            <div class="feature-icon">
+                <i class="fas fa-shield-alt"></i>
+            </div>
+            <h3 class="feature-title">Safe Travel</h3>
+            <p class="feature-desc">Our buses are regularly sanitized and equipped with safety measures for your secure journey.</p>
+        </div>
+        <div class="feature-card">
+            <div class="feature-icon">
+                <i class="fas fa-tags"></i>
+            </div>
+            <h3 class="feature-title">Best Offers</h3>
+            <p class="feature-desc">Enjoy exclusive discounts and cashback offers on every booking you make with us.</p>
+        </div>
+        <div class="feature-card">
+            <div class="feature-icon">
+                <i class="fas fa-headset"></i>
+            </div>
+            <h3 class="feature-title">24/7 Support</h3>
+            <p class="feature-desc">Our customer care team is available round the clock to assist you with any queries.</p>
+        </div>
+        <div class="feature-card">
+            <div class="feature-icon">
+                <i class="fas fa-map-marker-alt"></i>
+            </div>
+            <h3 class="feature-title">Wide Network</h3>
+            <p class="feature-desc">Connect to over 5000 destinations across the country with our extensive bus network.</p>
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-column">
+                <h3>SwiftRide</h3>
+                <p>Your trusted partner for comfortable and affordable bus journeys across the country.</p>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                </div>
+            </div>
+            <div class="footer-column">
+                <h3>Quick Links</h3>
+                <ul class="footer-links">
+                    <li><a href="#">Home</a></li>
+                    <li><a href="#">About Us</a></li>
+                    <li><a href="#">Services</a></li>
+                    <li><a href="#">Routes</a></li>
+                    <li><a href="#">Contact</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h3>Support</h3>
+                <ul class="footer-links">
+                    <li><a href="#">FAQs</a></li>
+                    <li><a href="#">Help Center</a></li>
+                    <li><a href="#">Terms & Conditions</a></li>
+                    <li><a href="#">Privacy Policy</a></li>
+                    <li><a href="#">Refund Policy</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h3>Contact Us</h3>
+                <ul class="footer-links">
+                    <li><i class="fas fa-phone"></i> +91 933 976 8425</li>
+                    <li><i class="fas fa-envelope"></i> pritamtung03@gmail.com</li>
+                    <li><i class="fas fa-map-marker-alt"></i> 123 Bus Street, Transport City</li>
+                </ul>
+            </div>
+        </div>
+        <div class="copyright">
+            &copy; 2025 SwiftRide. All rights reserved.
+        </div>
+    </footer>
+
+    <!-- Booking Modal -->
+    <div class="modal" id="bookingModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">Book Your Seat</h3>
+                <button class="close-btn" id="closeModal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <h4 id="modalBusName"></h4>
+                <p id="modalBusTiming"></p>
+                <div class="seat-selection" id="seatSelection">
+                    <!-- Seats will be generated by JavaScript -->
+                </div>
+                <div class="selected-seats">
+                    <strong>Selected Seats:</strong> <span id="selectedSeatsDisplay">None</span>
+                </div>
+                <div class="total-price">
+                    <strong>Total Price:</strong> $<span id="totalPrice">0</span>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="cancel-btn" id="cancelBooking">Cancel</button>
+                <button class="confirm-btn" id="confirmBooking">Confirm Booking</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Mobile Menu Toggle
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const navLinks = document.getElementById('navLinks');
+
+        mobileMenuBtn.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+        });
+
+        // Sample Bus Data
+        const buses = [
+            {
+                id: 1,
+                name: "Swift Deluxe",
+                type: "AC Sleeper",
+                departure: "08:00 AM",
+                arrival: "02:00 PM",
+                from: "New York",
+                to: "Boston",
+                amenities: ["wifi", "charging", "blanket", "water"],
+                price: 45,
+                seats: 36,
+                bookedSeats: [4, 5, 12, 13, 20, 21]
+            },
+            {
+                id: 2,
+                name: "City Express",
+                type: "AC Semi-Sleeper",
+                departure: "10:30 AM",
+                arrival: "05:30 PM",
+                from: "New York",
+                to: "Washington DC",
+                amenities: ["wifi", "charging", "water"],
+                price: 35,
+                seats: 40,
+                bookedSeats: [1, 2, 15, 16, 25, 26, 35, 36]
+            },
+            {
+                id: 3,
+                name: "Premium Travels",
+                type: "Non-AC Seater",
+                departure: "07:00 AM",
+                arrival: "12:00 PM",
+                from: "New York",
+                to: "Philadelphia",
+                amenities: ["charging", "water"],
+                price: 25,
+                seats: 42,
+                bookedSeats: [3, 4, 10, 11, 20, 21, 30, 31, 40, 41]
+            },
+            {
+                id: 4,
+                name: "Luxury Line",
+                type: "AC Sleeper",
+                departure: "11:00 PM",
+                arrival: "07:00 AM",
+                from: "New York",
+                to: "Chicago",
+                amenities: ["wifi", "charging", "blanket", "water", "snacks"],
+                price: 85,
+                seats: 32,
+                bookedSeats: [5, 6, 12, 13, 20, 21, 28, 29]
+            }
+        ];
+
+        // Search Form Submission
+        const searchForm = document.getElementById('searchForm');
+        const busList = document.getElementById('busList');
+
+        searchForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const from = document.getElementById('from').value;
+            const to = document.getElementById('to').value;
+            const date = document.getElementById('date').value;
+            const passengers = document.getElementById('passengers').value;
+
+            // In a real app, you would fetch buses based on search criteria
+            // Here we'll just display all sample buses
+            displayBuses(buses);
+        });
+
+        // Display Buses
+        function displayBuses(buses) {
+            busList.innerHTML = '';
+            
+            buses.forEach(bus => {
+                const busCard = document.createElement('div');
+                busCard.className = 'bus-card';
+                busCard.innerHTML = `
+                    <div class="bus-card-header">
+                        <h3 class="bus-name">${bus.name}</h3>
+                        <span class="bus-type">${bus.type}</span>
+                    </div>
+                    <div class="bus-card-body">
+                        <div class="bus-info">
+                            <div class="bus-info-item">
+                                <i class="fas fa-wifi ${bus.amenities.includes('wifi') ? '' : 'disabled'}"></i>
+                                <span>WiFi</span>
+                            </div>
+                            <div class="bus-info-item">
+                                <i class="fas fa-bolt ${bus.amenities.includes('charging') ? '' : 'disabled'}"></i>
+                                <span>Charging</span>
+                            </div>
+                            <div class="bus-info-item">
+                                <i class="fas fa-utensils ${bus.amenities.includes('snacks') ? '' : 'disabled'}"></i>
+                                <span>Snacks</span>
+                            </div>
+                            <div class="bus-info-item">
+                                <i class="fas fa-blanket ${bus.amenities.includes('blanket') ? '' : 'disabled'}"></i>
+                                <span>Blanket</span>
+                            </div>
+                        </div>
+                        <div class="bus-timings">
+                            <div class="timing">
+                                <div class="timing-time">${bus.departure}</div>
+                                <div class="timing-place">${bus.from}</div>
+                            </div>
+                            <div class="bus-separator">
+                                <i class="fas fa-circle"></i>
+                                <i class="fas fa-ellipsis-v"></i>
+                                <i class="fas fa-circle"></i>
+                            </div>
+                            <div class="timing">
+                                <div class="timing-time">${bus.arrival}</div>
+                                <div class="timing-place">${bus.to}</div>
+                            </div>
+                        </div>
+                        <div class="bus-price">
+                            <div>
+                                <span class="price-amount">$${bus.price}</span>
+                                <span>per seat</span>
+                            </div>
+                            <button class="book-btn" data-id="${bus.id}">Book Now</button>
+                        </div>
+                    </div>
+                `;
+                busList.appendChild(busCard);
+            });
+
+            // Add event listeners to book buttons
+            document.querySelectorAll('.book-btn').forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    const busId = parseInt(e.target.getAttribute('data-id'));
+                    const bus = buses.find(b => b.id === busId);
+                    openBookingModal(bus);
+                });
+            });
+        }
+
+        // Booking Modal
+        const bookingModal = document.getElementById('bookingModal');
+        const closeModal = document.getElementById('closeModal');
+        const cancelBooking = document.getElementById('cancelBooking');
+        const modalBusName = document.getElementById('modalBusName');
+        const modalBusTiming = document.getElementById('modalBusTiming');
+        const seatSelection = document.getElementById('seatSelection');
+        const selectedSeatsDisplay = document.getElementById('selectedSeatsDisplay');
+        const totalPrice = document.getElementById('totalPrice');
+        const confirmBooking = document.getElementById('confirmBooking');
+
+        let selectedBus = null;
+        let selectedSeats = [];
+
+        function openBookingModal(bus) {
+            selectedBus = bus;
+            selectedSeats = [];
+            
+            modalBusName.textContent = `${bus.name} (${bus.type})`;
+            modalBusTiming.textContent = `${bus.from} to ${bus.to} | ${bus.departure} - ${bus.arrival}`;
+            
+            // Generate seats
+            seatSelection.innerHTML = '';
+            for (let i = 1; i <= bus.seats; i++) {
+                const seat = document.createElement('div');
+                seat.className = `seat ${bus.bookedSeats.includes(i) ? 'booked' : 'available'}`;
+                seat.textContent = i;
+                seat.setAttribute('data-seat', i);
+                
+                if (!bus.bookedSeats.includes(i)) {
+                    seat.addEventListener('click', toggleSeatSelection);
+                }
+                
+                seatSelection.appendChild(seat);
+            }
+            
+            updateSelectionDisplay();
+            bookingModal.style.display = 'flex';
+        }
+
+        function toggleSeatSelection(e) {
+            const seatNum = parseInt(e.target.getAttribute('data-seat'));
+            const index = selectedSeats.indexOf(seatNum);
+            
+            if (index === -1) {
+                selectedSeats.push(seatNum);
+                e.target.classList.add('selected');
+            } else {
+                selectedSeats.splice(index, 1);
+                e.target.classList.remove('selected');
+            }
+            
+            updateSelectionDisplay();
+        }
+
+        function updateSelectionDisplay() {
+            if (selectedSeats.length === 0) {
+                selectedSeatsDisplay.textContent = 'None';
+            } else {
+                selectedSeatsDisplay.textContent = selectedSeats.join(', ');
+            }
+            
+            totalPrice.textContent = selectedSeats.length * selectedBus.price;
+        }
+
+        // Close modal
+        function closeBookingModal() {
+            bookingModal.style.display = 'none';
+        }
+
+        closeModal.addEventListener('click', closeBookingModal);
+        cancelBooking.addEventListener('click', closeBookingModal);
+
+        // Confirm booking
+        confirmBooking.addEventListener('click', () => {
+            if (selectedSeats.length === 0) {
+                alert('Please select at least one seat.');
+                return;
+            }
+            
+            alert(`Booking confirmed for seat(s) ${selectedSeats.join(', ')} on ${selectedBus.name}. Total: $${selectedSeats.length * selectedBus.price}`);
+            closeBookingModal();
+            
+            // In a real app, you would send this data to your backend
+            console.log('Booking details:', {
+                bus: selectedBus,
+                seats: selectedSeats,
+                totalPrice: selectedSeats.length * selectedBus.price
+            });
+        });
+
+        // Close modal when clicking outside
+        window.addEventListener('click', (e) => {
+            if (e.target === bookingModal) {
+                closeBookingModal();
+            }
+        });
+
+        // Initialize with some buses
+        displayBuses(buses);
+    </script>
+</body>
+</html>
